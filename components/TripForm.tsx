@@ -33,7 +33,7 @@ const TripForm = (
     values,
   } = props;
 
-  const { country, endDate, pace, startDate, travelers } = values;
+  const { country, endDate, pace, startDate, travelers, budget } = values;
 
   return (
     <Box autoComplete="off" component="form" noValidate onSubmit={handleSubmit}>
@@ -125,6 +125,21 @@ const TripForm = (
             required
             type="number"
             value={travelers}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            error={touched.budget && Boolean(errors.budget)}
+            fullWidth
+            helperText={touched.budget && errors.budget}
+            id="budget"
+            label="Budget"
+            name="budget"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            required
+            type="number"
+            value={budget}
           />
         </Grid>
         <Grid item xs={6}>

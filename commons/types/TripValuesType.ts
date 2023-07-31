@@ -3,6 +3,7 @@ interface TripFormValuesType {
   endDate: string | null;
   pace: string;
   travelers: number;
+  budget: number;
   startDate: string | null;
 }
 

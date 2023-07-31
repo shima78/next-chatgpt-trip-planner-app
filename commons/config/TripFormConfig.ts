@@ -8,6 +8,7 @@ const initialValues: TripFormValuesType = {
   endDate: null,
   pace: 'medium',
   travelers: 1,
+  budget: 2000,
   startDate: null,
 };
 
@@ -26,6 +27,10 @@ const validationSchema: Yup.SchemaOf<TripFormValuesType> = Yup.object().shape({
     .positive()
     .min(1, 'Must be greater than 0'),
   startDate: Yup.string().required('Field required').nullable(),
+  budget: Yup.number()
+  .required('Field required')
+  .positive()
+  .min(1, 'Must be greater than 0'),
 });
 
 export const getPaceLabel = (currentPaceValue: string): string =>

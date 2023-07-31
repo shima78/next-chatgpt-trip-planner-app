@@ -8,14 +8,15 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const generatePrompt = (req: NextApiRequest): string => {
-  const { country, endDate, pace, startDate, travelers } = req.body;
+  const { country, endDate, pace, startDate, budget, travelers } = req.body;
   const promptTemplate =
     'Plan a AAAA days trip to BBBB for CCCC people, ' +
-    'pace should be DDDD and give me an overall cost estimate at the end.';
+    'pace should be DDDD, my budget is EEEE $ and give me an overall cost estimate at the end.';
   return promptTemplate
     .replace('AAAA', calculateDateDiff(startDate, endDate).toString())
     .replace('BBBB', country)
     .replace('CCCC', travelers)
+    .replace('EEEE', budget)
     .replace('DDDD', getPaceLabel(pace));
 };
 
@@ -31,6 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       result: completion.data.choices[0].text,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       error: {
         message: 'An error occurred during the request.',
